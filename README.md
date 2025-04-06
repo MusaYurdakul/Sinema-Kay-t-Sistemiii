@@ -1,2 +1,3 @@
 # Sinema Kayıt Sistemiii
- java ile geliştirildi 
+ Nesneye dayalı programlama dersi proje ödevi
+ Java ile geliştirildi 
