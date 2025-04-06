@@ -1,0 +1,130 @@
+import java.util.Scanner;
+
+public class SinemaSistemi {
+    static final int MAX_FILM = 10;
+    static final int MAX_MUSTERI = 20;
+
+    static String[] filmAdlari = new String[MAX_FILM];
+    static String[] filmTurleri = new String[MAX_FILM];
+    static int[] filmSureleri = new int[MAX_FILM];
+
+    static String[] musteriAdlari = new String[MAX_MUSTERI];
+    static String[] musteriEmailleri = new String[MAX_MUSTERI];
+
+    // biletler[i][j] = true -> i. müşteri j. filmi seçmiş
+    static boolean[][] biletler = new boolean[MAX_MUSTERI][MAX_FILM];
+
+    static int filmSayisi = 0;
+    static int musteriSayisi = 0;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int secim;
+
+        do {
+            System.out.println("\n--- Sinema Müşteri Kayıt Sistemi ---");
+            System.out.println("1. Film Ekle");
+            System.out.println("2. Müşteri Ekle");
+            System.out.println("3. Bilet Oluştur");
+            System.out.println("4. Filmleri Listele");
+            System.out.println("5. Müşterileri Listele");
+            System.out.println("6. Biletleri Listele");
+            System.out.println("0. Çıkış");
+            System.out.print("Seçiminiz: ");
+            secim = scanner.nextInt();
+            scanner.nextLine(); // dummy read
+
+            switch (secim) {
+                case 1 -> filmEkle(scanner);
+                case 2 -> musteriEkle(scanner);
+                case 3 -> biletOlustur(scanner);
+                case 4 -> filmleriListele();
+                case 5 -> musterileriListele();
+                case 6 -> biletleriListele();
+                case 0 -> System.out.println("Çıkılıyor...");
+                default -> System.out.println("Geçersiz seçim!");
+            }
+        } while (secim != 0);
+
+        scanner.close();
+    }
+
+    static void filmEkle(Scanner scanner) {
+        if (filmSayisi >= MAX_FILM) {
+            System.out.println("Maksimum film sayısına ulaşıldı!");
+            return;
+        }
+        System.out.print("Film Adı: ");
+        filmAdlari[filmSayisi] = scanner.nextLine();
+        System.out.print("Türü: ");
+        filmTurleri[filmSayisi] = scanner.nextLine();
+        System.out.print("Süresi (dk): ");
+        filmSureleri[filmSayisi] = scanner.nextInt();
+        scanner.nextLine(); // dummy read
+        System.out.println("Film eklendi.");
+        filmSayisi++;
+    }
+
+    static void musteriEkle(Scanner scanner) {
+        if (musteriSayisi >= MAX_MUSTERI) {
+            System.out.println("Maksimum müşteri sayısına ulaşıldı!");
+            return;
+        }
+        System.out.print("Müşteri Adı: ");
+        musteriAdlari[musteriSayisi] = scanner.nextLine();
+        System.out.print("Email: ");
+        musteriEmailleri[musteriSayisi] = scanner.nextLine();
+        System.out.println("Müşteri eklendi.");
+        musteriSayisi++;
+    }
+
+    static void biletOlustur(Scanner scanner) {
+        musterileriListele();
+        System.out.print("Müşteri numarasını seçin (0-" + (musteriSayisi - 1) + "): ");
+        int musteriIndex = scanner.nextInt();
+
+        filmleriListele();
+        System.out.print("Film numarasını seçin (0-" + (filmSayisi - 1) + "): ");
+        int filmIndex = scanner.nextInt();
+
+        if (musteriIndex >= 0 && musteriIndex < musteriSayisi &&
+            filmIndex >= 0 && filmIndex < filmSayisi) {
+            biletler[musteriIndex][filmIndex] = true;
+            System.out.println("Bilet başarıyla oluşturuldu.");
+        } else {
+            System.out.println("Geçersiz müşteri veya film numarası!");
+        }
+    }
+
+    static void filmleriListele() {
+        System.out.println("\n--- Filmler ---");
+        for (int i = 0; i < filmSayisi; i++) {
+            System.out.println(i + " - " + filmAdlari[i] + " (" + filmTurleri[i] + ", " + filmSureleri[i] + " dk)");
+        }
+    }
+
+    static void musterileriListele() {
+        System.out.println("\n--- Müşteriler ---");
+        for (int i = 0; i < musteriSayisi; i++) {
+            System.out.println(i + " - " + musteriAdlari[i] + " (" + musteriEmailleri[i] + ")");
+        }
+    }
+
+    static void biletleriListele() {
+        System.out.println("\n--- Biletler ---");
+        for (int i = 0; i < musteriSayisi; i++) {
+            System.out.print(musteriAdlari[i] + " -> ");
+            boolean biletVar = false;
+            for (int j = 0; j < filmSayisi; j++) {
+                if (biletler[i][j]) {
+                    System.out.print(filmAdlari[j] + " | ");
+                    biletVar = true;
+                }
+            }
+            if (!biletVar) {
+                System.out.print("Bilet yok.");
+            }
+            System.out.println();
+        }
+    }
+}
