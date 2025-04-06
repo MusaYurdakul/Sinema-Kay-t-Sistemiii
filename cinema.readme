@@ -1,0 +1,35 @@
+🎯 Kodun Amacı:
+Kullanıcının konsol üzerinden:
+
+Film tanımlaması
+
+Müşteri kaydı
+
+Bilet oluşturması (müşteri ile film eşleştirme)
+
+Film, müşteri ve bilet listelerini görmesi
+
+işlemlerini gerçekleştirmesini sağlayan bir Java uygulamasıdır.
+
+📦 Kodda Neler Var?
+Bileşen	Açıklama
+filmAdlari[]	En fazla 10 film adı saklar
+musteriAdlari[], musteriEmailleri[]	En fazla 20 müşterinin adı ve e-postasını saklar
+biletler[][]	Hangi müşterinin hangi filme bilet aldığı bilgisini tutar
+Menü yapısı	Kullanıcıdan seçim alır ve ilgili işlemi yapar
+Scanner	Konsoldan giriş almak için kullanılır
+🔁 Nasıl Çalışır?
+Kullanıcı menüden seçim yapar.
+
+Film ya da müşteri ekler.
+
+Bilet oluşturmak için bir müşteri ve bir film seçer.
+
+Tüm listelemeler konsola yazdırılır.
+
+🧠 Kimin İçin Faydalı?
+Java öğrenmeye yeni başlayanlar
+
+Dizi yapısını anlamak isteyenler
+
+Basit bir kayıt sistemi geliştirmek isteyen öğrenciler
